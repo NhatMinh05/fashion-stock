@@ -76,7 +76,7 @@ export default function PredictionResults({ result, storeScale, month, chartData
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                         <XAxis dataKey="name" stroke="#94a3b8" tick={{ fontSize: 11, fontWeight: 'bold' }} axisLine={false} tickLine={false} tickMargin={12} />
                         <YAxis stroke="#94a3b8" tick={{ fontSize: 11 }} tickFormatter={(val) => val.toLocaleString()} axisLine={false} tickLine={false} width={45} />
-                        <Tooltip cursor={{fill: 'rgba(255,255,255,0.02)'}} contentStyle={{ backgroundColor: '#0A0817', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', backdropFilter: 'blur(10px)' }} itemStyle={{fontWeight: 'bold'}} formatter={(value: number) => value.toLocaleString()} />
+                        <Tooltip cursor={{fill: 'rgba(255,255,255,0.02)'}} contentStyle={{ backgroundColor: '#0A0817', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', backdropFilter: 'blur(10px)' }} itemStyle={{fontWeight: 'bold'}} formatter={(value: number | string | any) => Number(value || 0).toLocaleString()} />
                         <Bar dataKey="base" stackId="a" fill="transparent" />
                         <Bar dataKey="value" stackId="a" radius={[4, 4, 4, 4]}>{chartData.map((e, i) => <Cell key={i} fill={e?.color} />)}</Bar>
                     </BarChart>
