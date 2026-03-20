@@ -7,10 +7,15 @@ from chatbot_logic import get_chatbot_response # Import hàm xử lý đã đón
 
 app = FastAPI(title=settings.PROJECT_NAME)
 
-# Cấu hình CORS
+# Cấu hình CORS (ĐÃ SỬA LẠI ĐỂ KHÔNG BỊ LỖI KHI DEPLOY)
+origins = [
+    "http://localhost:3000", # Cho phép chạy local lúc code Next.js
+    "https://minh-fashion-stock.vercel.app" # Mở cửa cho link Vercel của Minh
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins, # Thay vì ["*"] thì trỏ đích danh link luôn
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
