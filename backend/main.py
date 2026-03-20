@@ -11,6 +11,7 @@ app = FastAPI(title=settings.PROJECT_NAME)
 origins = [
     "http://localhost:3000", # Cho phép chạy local lúc code Next.js
     "https://minh-fashion-stock.vercel.app" # Mở cửa cho link Vercel của Minh
+    "https://fashion-stock.vercel.app"
 ]
 
 app.add_middleware(
