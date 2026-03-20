@@ -10,4 +10,5 @@ langchain
 python-dotenv
 streamlit
 numpy
-scikit-learn
+sklearn
+tabulate
