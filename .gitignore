@@ -1,4 +1,6 @@
 *.csv
+!top_100_products.csv
+!backend/top_100_products.csv
 *.ipynb
 *.docx
 *.pyc
