@@ -2,4 +2,5 @@ fastapi
 uvicorn
 pandas
 google-generativeai
+joblib
 # Nếu file chatbot_logic.py hay api.py có dùng gì thêm (như scikit-learn, pydantic...) thì Minh nhớ thêm vào nhé!
