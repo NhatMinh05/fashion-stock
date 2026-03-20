@@ -3,12 +3,11 @@ uvicorn
 pandas
 google-generativeai
 joblib
-langchain_google_genai
-langchain_experimental
-langchain
-# Nếu file chatbot_logic.py hay api.py có dùng gì thêm (như scikit-learn, pydantic...) thì Minh nhớ thêm vào nhé!
-python-dotenv
-streamlit
-numpy
-sklearn
+scikit-learn
 tabulate
+numpy
+python-dotenv
+langchain
+langchain-google-genai
+langchain-experimental
+# streamlit  <-- (Xem lưu ý phía dưới của mình nhé)
