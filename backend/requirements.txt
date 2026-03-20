@@ -4,4 +4,5 @@ pandas
 google-generativeai
 joblib
 langchain_google_genai
+langchain_experimental
 # Nếu file chatbot_logic.py hay api.py có dùng gì thêm (như scikit-learn, pydantic...) thì Minh nhớ thêm vào nhé!
