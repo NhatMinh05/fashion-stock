@@ -34,7 +34,7 @@ export default function Home() {
 
   // Tải dữ liệu ban đầu
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/products").then(res => res.json())
+    fetch("https://fashion-stock.onrender.com/api/products").then(res => res.json())
       .then(data => { setProductList(data); if (data.length > 0) handleSelectProduct(data[0]); });
   }, []);
 
@@ -57,7 +57,7 @@ export default function Home() {
   const handlePredict = async () => {
     setIsSimulating(true);
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/predict", {
+      const res = await fetch("https://fashion-stock.onrender.com/api/predict", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ price, month, current_stock: currentStock, weekly_vel_base: weeklyVel, lead_time: leadTime, complexity_val: complexity, event_count: eventCount, is_discount_val: isDiscount, store_scale: storeScale }),
       });
