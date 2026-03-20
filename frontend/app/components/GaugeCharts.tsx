@@ -12,8 +12,9 @@ export default function GaugeCharts() {
 
             {/* Gauge 1: Độ Tin Cậy AI */}
             <div className="flex flex-col items-center w-full z-10">
-                <div className="w-36 h-36 relative">
-                    <ResponsiveContainer width="100%" height="100%">
+                <div className="w-36 relative"> {/* Đã bỏ h-36 ở đây */}
+                    {/* SỬA LỖI: Bỏ height="100%", thêm aspect={1} */}
+                    <ResponsiveContainer width="100%" aspect={1}>
                         <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
                             <defs>
                                 <linearGradient id="neonCyanBlue" x1="0" y1="0" x2="1" y2="1">
@@ -21,14 +22,12 @@ export default function GaugeCharts() {
                                     <stop offset="100%" stopColor="#330df2" stopOpacity={1} />
                                 </linearGradient>
                             </defs>
-                            {/* CẬP NHẬT: Đổi từ 76 -> 74, phần dư là 26 */}
                             <Pie data={[{value: 74}, {value: 26}]} innerRadius={52} outerRadius={65} dataKey="value" stroke="none">
                                 <Cell fill="url(#neonCyanBlue)" style={{filter: 'drop-shadow(0 0 1px rgba(56, 189, 248, 0.7))'}} />
                                 <Cell fill="#1a222c" />
                             </Pie>
                         </PieChart>
                     </ResponsiveContainer>
-                    {/* CẬP NHẬT: Đổi Text hiển thị thành 74% */}
                     <span className="absolute inset-0 flex items-center justify-center font-black text-4xl text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">74%</span>
                 </div>
                 <p className="text-[13px] font-bold text-[#38BDF8] mt-5 text-center tracking-[0.25em] uppercase">
@@ -41,8 +40,9 @@ export default function GaugeCharts() {
 
             {/* Gauge 2: Chính Xác */}
             <div className="flex flex-col items-center w-full z-10">
-                <div className="w-36 h-36 relative">
-                    <ResponsiveContainer width="100%" height="100%">
+                <div className="w-36 relative"> {/* Đã bỏ h-36 ở đây */}
+                    {/* SỬA LỖI: Bỏ height="100%", thêm aspect={1} */}
+                    <ResponsiveContainer width="100%" aspect={1}>
                         <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
                             <defs>
                                 <linearGradient id="neonPinkBlue" x1="0" y1="1" x2="1" y2="0">
@@ -50,14 +50,12 @@ export default function GaugeCharts() {
                                     <stop offset="100%" stopColor="#330DF2" stopOpacity={1} />
                                 </linearGradient>
                             </defs>
-                            {/* CẬP NHẬT: Đổi từ 81 -> 88, phần dư là 12 */}
                             <Pie data={[{value: 88}, {value: 12}]} innerRadius={52} outerRadius={65} dataKey="value" stroke="none">
                                 <Cell fill="url(#neonPinkBlue)" style={{filter: 'drop-shadow(0 0 2px rgba(255, 0, 229, 0.5))'}} />
                                 <Cell fill="#1a222c" />
                             </Pie>
                         </PieChart>
                     </ResponsiveContainer>
-                    {/* CẬP NHẬT: Đổi Text hiển thị thành 88% */}
                     <span className="absolute inset-0 flex items-center justify-center font-black text-4xl text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">88%</span>
                 </div>
                 <p className="text-[13px] font-bold text-[#FF00E5] mt-5 text-center tracking-[0.25em] uppercase">
