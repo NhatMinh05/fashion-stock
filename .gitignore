@@ -1,0 +1,7 @@
+*.csv
+*.ipynb
+*.docx
+*.pyc
+__pycache__/
+node_modules/
+.next/
