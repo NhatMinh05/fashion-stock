@@ -10,7 +10,7 @@ app = FastAPI(title=settings.PROJECT_NAME)
 # Cấu hình CORS (ĐÃ SỬA LẠI ĐỂ KHÔNG BỊ LỖI KHI DEPLOY)
 origins = [
     "http://localhost:3000", # Cho phép chạy local lúc code Next.js
-    "https://minh-fashion-stock.vercel.app" # Mở cửa cho link Vercel của Minh
+    "https://minh-fashion-stock.vercel.app", # Mở cửa cho link Vercel của Minh
     "https://fashion-stock.vercel.app"
 ]
 

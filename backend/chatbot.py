@@ -50,6 +50,7 @@ def local_fallback(user_input, dataset):
     elif any(word in user_input for word in ["bán chạy", "chạy nhất"]): return "ban_chay_nhat", found_entity
     elif any(word in user_input for word in ["chi phí", "tốn kém"]): return "chi_phi_luu_kho_cao", found_entity
     elif any(word in user_input for word in ["sắp hết", "hết hàng", "đứt hàng"]): return "sap_het_hang", found_entity
+    elif any(word in user_input for word in ["giá cao nhất", "đắt nhất", "giá trị nhất", "giá tiền lớn nhất", "đắt tiền nhất"]): return "gia_cao_nhat", found_entity
     return "kiem_tra_ton_kho", found_entity
 
 # --- 3. BỘ NÃO NLP ---
@@ -61,7 +62,7 @@ def analyze_intent(user_input, chat_history, dataset):
     Câu hỏi mới: {user_input}
     
     Nhiệm vụ: Trích xuất ý định và Từ khóa sản phẩm.
-    - Intent: Chọn 1 trong ['kiem_tra_ton_kho', 'ton_lau_nhat', 'ban_chay_nhat', 'chi_phi_luu_kho_cao', 'sap_het_hang'].
+    - Intent: Chọn 1 trong ['kiem_tra_ton_kho', 'ton_lau_nhat', 'ban_chay_nhat', 'chi_phi_luu_kho_cao', 'sap_het_hang', 'gia_cao_nhat'].
     - Entity: Tên sản phẩm (VD: 'henry polo') HOẶC Mã số sản phẩm (VD: '108775015'). Trả về chuỗi rỗng nếu không có.
     Trả về định dạng JSON: {{"intent": "...", "entity": "..."}}
     """
@@ -75,7 +76,7 @@ def analyze_intent(user_input, chat_history, dataset):
 
 # --- 4. TRUY VẤN DỮ LIỆU ---
 def get_database_response(intent, entity, dataset):
-    # Xử lý 4 câu hỏi phân tích chung
+    # Xử lý 5 câu hỏi phân tích chung
     if intent == "ton_lau_nhat":
         oldest = dataset.sort_values(by='t_dat').iloc[0]
         return f"Sản phẩm tồn lâu nhất là {oldest['prod_name']} (Mã: {oldest.get('article_id', 'N/A')}), nhập từ ngày {oldest['t_dat']}."
@@ -91,6 +92,13 @@ def get_database_response(intent, entity, dataset):
         dataset['Weeks_of_Supply'] = dataset['Initial_Inventory'] / velocity
         risk = dataset.sort_values(by='Weeks_of_Supply').iloc[0]
         return f"Cảnh báo: Sản phẩm {risk['prod_name']} (Mã: {risk.get('article_id', 'N/A')}) có nguy cơ đứt hàng cao nhất. Chỉ còn {int(risk['Initial_Inventory'])} cái, dự kiến cạn kho trong {risk['Weeks_of_Supply']:.1f} tuần."
+    elif intent == "gia_cao_nhat":
+        # Hàm kiểm tra và truy xuất giá cao nhất
+        if 'price' in dataset.columns:
+            highest_price = dataset.sort_values(by='price', ascending=False).iloc[0]
+            return f"Sản phẩm có giá bán cao nhất là {highest_price['prod_name']} (Mã: {highest_price.get('article_id', 'N/A')}) với mức giá ${highest_price['price']}."
+        else:
+            return "Dạ, file dữ liệu hiện tại chưa có cột 'price' (giá tiền) để em tra cứu ạ."
 
     # Xử lý câu hỏi kiểm tra tồn kho cụ thể
     if not entity or len(entity) < 3:
@@ -116,6 +124,7 @@ def get_database_response(intent, entity, dataset):
         return f"Em không tìm thấy mã số '{entity}' trong danh sách TOP 100 sản phẩm trong kho."
     else:
         return f"Em không tìm thấy sản phẩm nào có tên gần giống '{entity}' trong kho."
+    
 
 # --- 5. GIAO DIỆN CHAT ---
 if "messages" not in st.session_state:
