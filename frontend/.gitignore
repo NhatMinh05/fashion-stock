@@ -39,5 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
+git rm -r --cached .
 *.csv
+!top_100_products.csv
+!backend/top_100_products.csv
