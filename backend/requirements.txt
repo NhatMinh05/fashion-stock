@@ -11,3 +11,4 @@ langchain
 langchain-google-genai
 langchain-experimental
 # streamlit  <-- (Xem lưu ý phía dưới của mình nhé)
+openai==1.14.0
