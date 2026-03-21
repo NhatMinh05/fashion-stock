@@ -13,3 +13,4 @@ langchain-experimental
 # streamlit  <-- (Xem lưu ý phía dưới của mình nhé)
 openai
 httpx==0.27.2
+PyYAML==6.0.1
