@@ -3,9 +3,9 @@ uvicorn
 pandas
 google-generativeai
 joblib
-scikit-learn
+scikit-learn==1.7.2
 tabulate
-numpy
+numpy==2.4.3
 python-dotenv
 langchain
 langchain-google-genai
