@@ -1,9 +1,16 @@
-# core/config.py
+import os
+from dotenv import load_dotenv
+
+# Tải các biến môi trường từ file .env (nếu chạy trên máy tính của bạn)
+load_dotenv()
+
 class Settings:
     PROJECT_NAME: str = "H&M AI Control Tower Backend"
-    GOOGLE_API_KEY: str = "AIzaSyAnj5wvpY_IGtnrBwXpzT1JUPbZlkj1Q80"
+    # Lấy Key bí mật từ hệ thống, không ghi trực tiếp vào code nữa!
+    DEEPSEEK_API_KEY: str = os.getenv("DEEPSEEK_API_KEY", "")
     MODEL_DEMAND_PATH: str = "model_1_monthly_demand_v3.pkl"
     MODEL_INVENTORY_PATH: str = "model_2_inventory.pkl"
-    DATA_PATH: str = "top_100_products.csv"
+    # Đã đổi thành đường dẫn tương đối để lên server không bị lỗi
+    DATA_PATH: str = "HM_Scientific_Master_FinalPro_ML.csv" 
 
 settings = Settings()

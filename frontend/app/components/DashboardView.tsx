@@ -159,7 +159,7 @@ export default function DashboardView(props: DashboardViewProps) {
             </div>
 
             {/* BỐ CỤC CHIA CỘT */}
-            <div className="flex flex-col lg:flex-row gap-6 mb-8 items-start">
+            <div className="flex flex-col lg:flex-row gap-6 mb-8 items-start relative">
               {/* CỘT TRÁI */}
               <div className="flex-[2.5] w-full min-w-0 space-y-6">
                 <SimulatorEngine activeTab={activeTab} setActiveTab={setActiveTab} price={price} setPrice={setPrice} weeklyVel={weeklyVel} setWeeklyVel={setWeeklyVel} currentStock={currentStock} setCurrentStock={setCurrentStock} leadTime={leadTime} setLeadTime={setLeadTime} month={month} setMonth={setMonth} complexity={complexity} setComplexity={setComplexity} isDiscount={isDiscount} setIsDiscount={setIsDiscount} eventCount={eventCount} setEventCount={setEventCount} storeScale={storeScale} setStoreScale={setStoreScale} handlePredict={handlePredict} isSimulating={isSimulating} />
@@ -168,18 +168,34 @@ export default function DashboardView(props: DashboardViewProps) {
 
               {/* CỘT PHẢI */}
               <div className="flex-[1] w-full min-w-0 lg:max-w-[400px] space-y-6 flex flex-col">
-                 {!showChat && (
-                    <div className="bg-gradient-to-r from-[#00F2FF]/20 to-transparent p-1 rounded-2xl">
-                        <button onClick={() => setShowChat(true)} className="w-full bg-[#0A0817] text-[#00F2FF] font-bold py-4 rounded-xl hover:bg-[#00F2FF]/10 transition-colors flex items-center justify-center gap-2 border border-[#00F2FF]/30">
-                           <span className="material-symbols-outlined">forum</span> Kích Hoạt Chatbot
-                        </button>
-                    </div>
-                 )}
                  <GaugeCharts />
                  <LowStockAlert productList={productList} selectedProd={selectedProd} onSelectProduct={handleSelectProduct} />
-                 {showChat && <ChatWidget onClose={() => setShowChat(false)} robotRotateX={robotRotateX} robotRotateY={robotRotateY} />}
               </div>
             </div>
+
+            {/* ======================================================= */}
+            {/* FLOATING CHAT WIDGET (Nút tròn và Khung chat lơ lửng) */}
+            {/* ======================================================= */}
+            <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end">
+                {/* 1. Nếu đang mở Chat thì hiện khung ChatWidget */}
+                {showChat && (
+                    <div className="mb-4 w-[350px] sm:w-[400px] shadow-2xl animate-in fade-in slide-in-from-bottom-5 duration-300">
+                        <ChatWidget onClose={() => setShowChat(false)} robotRotateX={robotRotateX} robotRotateY={robotRotateY} />
+                    </div>
+                )}
+
+                {/* 2. Nếu ĐANG TẮT Chat thì mới hiện cái NÚT TRÒN LƠ LỬNG */}
+                {!showChat && (
+                    <button 
+                        onClick={() => setShowChat(true)} 
+                        className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#00F2FF] to-[#1d4ed8] text-white rounded-full shadow-[0_0_20px_rgba(0,242,255,0.6)] hover:scale-110 transition-transform duration-300"
+                        title="Mở AI Assistant"
+                    >
+                        <span className="material-symbols-outlined text-3xl">smart_toy</span>
+                    </button>
+                )}
+            </div>
+
         </div>
     );
 }

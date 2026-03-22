@@ -1,0 +1,91 @@
+{
+    "status": "success",
+    "pie_chart": [
+        {
+            "name": "Hot (Top Seller)",
+            "value": 75
+        },
+        {
+            "name": "Ổn định (Stable)",
+            "value": 305
+        },
+        {
+            "name": "Bán chậm (Slow)",
+            "value": 7003
+        },
+        {
+            "name": "Tồn chết (Dead)",
+            "value": 97164
+        }
+    ],
+    "bar_chart": [
+        {
+            "name": "Jade HW Skinny Denim TRS",
+            "sold": 483
+        },
+        {
+            "name": "Jade HW Skinny Denim TRS",
+            "sold": 336
+        },
+        {
+            "name": "7p Basic Shaftless",
+            "sold": 304
+        },
+        {
+            "name": "Tilly (1)",
+            "sold": 290
+        },
+        {
+            "name": "Tilda tank",
+            "sold": 253
+        }
+    ],
+    "area_chart": [
+        {
+            "week": "Tuần -4",
+            "revenue": 7858,
+            "cost": 4905
+        },
+        {
+            "week": "Tuần -3",
+            "revenue": 8016,
+            "cost": 4954
+        },
+        {
+            "week": "Tuần -2",
+            "revenue": 8176,
+            "cost": 5003
+        },
+        {
+            "week": "Tuần -1",
+            "revenue": 8339,
+            "cost": 5053
+        },
+        {
+            "week": "HIỆN TẠI",
+            "revenue": 8506,
+            "cost": 5104
+        },
+        {
+            "week": "Tuần +1",
+            "revenue": 8676,
+            "cost": 5155
+        },
+        {
+            "week": "Tuần +2",
+            "revenue": 8850,
+            "cost": 5206
+        },
+        {
+            "week": "Tuần +3",
+            "revenue": 9027,
+            "cost": 5258
+        },
+        {
+            "week": "Tuần +4",
+            "revenue": 9207,
+            "cost": 5311
+        }
+    ],
+    "total_products": 31788324
+}

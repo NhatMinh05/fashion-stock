@@ -4,12 +4,16 @@ import Sidebar from "../components/Sidebar";
 import DashboardView from "../components/DashboardView";
 import DatabaseView from "../components/DatabaseView";
 import AdminView from "../components/AdminView";
+import AnalyticsView from "../components/AnalyticsView";
 
 export default function Home() {
   // === LOGIC HỆ THỐNG & TRẠNG THÁI ===
   const [currentMenu, setCurrentMenu] = useState("dashboard");
   const [productList, setProductList] = useState<any[]>([]);
   const [selectedProd, setSelectedProd] = useState<any>(null);
+  
+  // ---> THÊM STATE ĐỂ CHỨA DỮ LIỆU TỔNG CHO TRANG ANALYTICS <---
+  const [globalSummary, setGlobalSummary] = useState<any>(null);
   
   const [activeTab, setActiveTab] = useState("basic");
   const [price, setPrice] = useState(0);
@@ -34,8 +38,24 @@ export default function Home() {
 
   // Tải dữ liệu ban đầu
   useEffect(() => {
-    fetch("https://fashion-stock.onrender.com/api/products").then(res => res.json())
-      .then(data => { setProductList(data); if (data.length > 0) handleSelectProduct(data[0]); });
+    // 1. Tải danh sách 100 sản phẩm (cho Control Tower hiện tại)
+    fetch("https://fashion-stock.onrender.com/api/products")
+      .then(res => res.json())
+      .then(data => { 
+        setProductList(data); 
+        if (data.length > 0) handleSelectProduct(data[0]); 
+      })
+      .catch(err => console.error("Lỗi tải products:", err));
+
+    // 2. Tải dữ liệu tổng hợp (cho trang Phân Tích mới)
+    fetch("http://localhost:8000/api/analytics/summary")
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === "success") {
+          setGlobalSummary(data);
+        }
+      })
+      .catch(err => console.error("Lỗi tải data Analytics:", err));
   }, []);
 
   // Tính số ngày sự kiện theo tháng
@@ -104,6 +124,11 @@ export default function Home() {
             showChat={showChat} setShowChat={setShowChat} robotRotateX={robotRotateX} robotRotateY={robotRotateY}
             chartData={chartData}
           />
+        )}
+
+        {/* ---> ĐÃ SỬA: TRUYỀN globalSummary VÀO AnalyticsView <--- */}
+        {currentMenu === "analytics" && (
+          <AnalyticsView globalSummary={globalSummary} />
         )}
 
         {currentMenu === "database" && <DatabaseView productList={productList} />}

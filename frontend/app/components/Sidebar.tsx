@@ -13,6 +13,7 @@ export default function Sidebar({ currentMenu, setCurrentMenu }: SidebarProps) {
     const menus = [
         { id: "dashboard", icon: "space_dashboard", label: "Bảng điều khiển" },
         { id: "database", icon: "database", label: "Tra cứu hệ thống" },
+        { id: "analytics", icon: "analytics", label: "Phân tích hệ thống" }, 
         { id: "admin", icon: "settings", label: "Cài đặt Admin" }
     ];
 
