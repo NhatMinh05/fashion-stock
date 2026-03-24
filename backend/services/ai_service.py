@@ -33,7 +33,7 @@ try:
     )
     agent = create_pandas_dataframe_agent(
         llm, db_dashboard, verbose=True, allow_dangerous_code=True,
-        prefix=prefix_instructions, handle_parsing_errors=True, 
+        prefix=prefix_instructions,
         max_iterations=15, agent_type="openai-tools", early_stopping_method="generate" 
     )
     print("✅ Đã khởi tạo AI LangChain Agent (DeepSeek Engine)!")

@@ -5,7 +5,9 @@ from routers.api import router as api_router
 from core.config import settings
 
 app = FastAPI(title=settings.PROJECT_NAME)
-
+@app.get("/")
+def root_health_check():
+    return {"status": "ok", "message": "H&M Global Backend is running perfectly!"}
 # Cấu hình CORS (BAO PHỦ MỌI TRƯỜNG HỢP LOCAL VÀ DEPLOY)
 origins = [
     "http://localhost:3000", 
