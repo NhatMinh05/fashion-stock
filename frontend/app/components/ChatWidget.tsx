@@ -11,11 +11,30 @@ interface ChatWidgetProps {
 export default function ChatWidget({ onClose, robotRotateX, robotRotateY }: ChatWidgetProps) {
     // 1. CHUYỂN TOÀN BỘ STATE CỦA CHAT SANG ĐÂY
     const [chatInput, setChatInput] = useState("");
-    const [chatMessages, setChatMessages] = useState([
-        { role: "assistant", content: "Dạ em chào anh Minh ạ! Cần em kiểm tra mã hàng nào hôm nay?" }
-    ]);
+    
+    // [FIX MỚI]: Lấy lịch sử từ Local Storage khi vừa mở lên
+    const [chatMessages, setChatMessages] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const savedChat = localStorage.getItem("hm_chatHistory");
+            if (savedChat) {
+                return JSON.parse(savedChat);
+            }
+        }
+        // Câu chào mặc định nếu là lần đầu chat
+        return [
+            { role: "assistant", content: "Dạ chào Anh/Chị quản lý! Em là trợ lý AI, em có thể hỗ trợ tra cứu mã hàng hay phân tích kho vận gì cho mình hôm nay ạ?" }
+        ];
+    });
+
     const [isChatLoading, setIsChatLoading] = useState(false);
     const chatEndRef = useRef<HTMLDivElement>(null);
+
+    // [FIX MỚI]: Tự động lưu mảng chat vào Local Storage mỗi khi có tin nhắn mới
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            localStorage.setItem("hm_chatHistory", JSON.stringify(chatMessages));
+        }
+    }, [chatMessages]);
 
     // 2. CHUYỂN LOGIC SCROLL SANG ĐÂY
     useEffect(() => { 
@@ -38,7 +57,7 @@ export default function ChatWidget({ onClose, robotRotateX, robotRotateY }: Chat
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 
                     message: chatInput, 
-                    history: chatMessages // CẬP NHẬT: Gửi toàn bộ lịch sử tin nhắn hiện có lên Backend
+                    history: chatMessages // Gửi toàn bộ lịch sử tin nhắn hiện có lên Backend
                 }),
             });
             const data = await res.json();
@@ -51,11 +70,29 @@ export default function ChatWidget({ onClose, robotRotateX, robotRotateY }: Chat
         setIsChatLoading(false);
     };
 
+    // HÀM QUÉT DỌN LỊCH SỬ CHAT
+    const handleClearChat = () => {
+        const defaultChat = [{ 
+            role: "assistant", 
+            content: "Dạ chào Anh/Chị quản lý! Em là trợ lý AI, em có thể hỗ trợ tra cứu mã hàng hay phân tích kho vận gì cho mình hôm nay ạ?" 
+        }];
+        setChatMessages(defaultChat);
+        if (typeof window !== 'undefined') {
+            localStorage.setItem("hm_chatHistory", JSON.stringify(defaultChat));
+        }
+    };
+
     // 4. CHUYỂN TOÀN BỘ UI CỦA KHUNG CHAT SANG ĐÂY
     return (
         <div className="fixed bottom-0 right-[100px] w-[338px] h-[455px] z-[100] bg-[#0A0817]/95 rounded-t-2xl border border-b-0 border-[#00F2FF]/50 shadow-[0_-5px_40px_rgba(0,242,255,0.15)] flex flex-col animate-in slide-in-from-bottom-10 fade-in backdrop-blur-2xl overflow-hidden">
+            
             <button onClick={onClose} className="absolute right-3 top-3 text-slate-400 hover:text-[#FF00E5] z-10 transition-colors">
                 <span className="material-symbols-outlined text-[20px]">close</span>
+            </button>
+
+            {/* NÚT XÓA LỊCH SỬ MỚI THÊM NẰM Ở ĐÂY */}
+            <button onClick={handleClearChat} title="Xóa lịch sử trò chuyện" className="absolute right-10 top-3 text-slate-400 hover:text-[#00F2FF] z-10 transition-colors">
+                <span className="material-symbols-outlined text-[20px]">autorenew</span>
             </button>
 
             <div className="p-3 flex flex-col items-center border-b border-white/10 bg-gradient-to-b from-[#00F2FF]/10 to-transparent">
