@@ -150,7 +150,7 @@ export default function AnalyticsView({ globalSummary: initialSummary }: Analyti
   // Tính năng AUTO-RESCUE
   useEffect(() => {
     if (!summaryData || !summaryData.treemap_chart || !summaryData.total_rows || summaryData.total_rows < 1000) {
-      fetch('http://127.0.0.1:8000/api/analytics/summary')
+      fetch('https://fashion-stock.onrender.com/api/analytics/summary')
         .then(res => res.json())
         .then(data => {
           if (data && data.line_chart) setSummaryData(data);

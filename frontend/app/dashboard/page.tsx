@@ -48,7 +48,7 @@ export default function Home() {
       .catch(err => console.error("Lỗi tải products:", err));
 
     // 2. Tải dữ liệu tổng hợp (cho trang Phân Tích mới)
-    fetch("http://localhost:8000/api/analytics/summary")
+    fetch("http://https://fashion-stock.onrender.com/api/analytics/summary")
       .then(res => res.json())
       .then(data => {
         if (data.status === "success") {
