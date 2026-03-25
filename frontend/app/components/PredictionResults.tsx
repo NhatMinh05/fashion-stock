@@ -61,12 +61,13 @@ export default function PredictionResults({ result, storeScale, month, chartData
                 </div>
             </div>
 
-            {result.ai_overridden && (
+            {/* {result.ai_overridden && (
                 <div className="mb-6 bg-amber-500/10 border border-amber-500/50 p-4 rounded-xl text-amber-400 text-sm font-medium flex gap-3 items-center backdrop-blur-sm">
                     <span className="material-symbols-outlined text-xl text-amber-500">warning</span> 
                     Business Guardrail Active: AI detected potential stockout. Safe-stock rules applied automatically.
                 </div>
             )}
+            */}
             
             {/* BIỂU ĐỒ THÁC NƯỚC */}
             <div className="h-80 w-full bg-[#0A0817]/80 rounded-2xl border border-white/10 p-5">
