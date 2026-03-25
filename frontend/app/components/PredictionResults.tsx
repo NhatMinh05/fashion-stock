@@ -22,7 +22,7 @@ export default function PredictionResults({ result, storeScale, month, chartData
                 {/* Thẻ 1: Nhu Cầu Dự Báo */}
                 <div className="bg-[#0A0817]/80 p-4 rounded-2xl border border-white/10 shadow-inner flex flex-col justify-center items-center relative overflow-hidden group hover:border-[#00F2FF]/40 transition-colors">
                     <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-widest z-10">Nhu Cầu Dự Báo</p>
-                    <p className="text-3xl font-black text-[#00F2FF] drop-shadow-[0_0_8px_rgba(0,242,255,0.5)] z-10">{result.demand_pred.toLocaleString()}</p>
+                    <p className="text-3xl font-black text-[#00F2FF] drop-shadow-[0_0_8px_rgba(0,242,255,0.5)] z-10">{Number(result.demand_pred || 0).toLocaleString()}</p>
                     <div className="mt-2 flex items-center gap-1.5 text-slate-400 text-xs font-medium z-10">
                         <span className="material-symbols-outlined text-[14px] text-[#00F2FF]">calendar_month</span>
                         <span>Cho Tháng {month}</span>
@@ -32,7 +32,7 @@ export default function PredictionResults({ result, storeScale, month, chartData
                 {/* Thẻ 2: Kho An Toàn */}
                 <div className="bg-[#0A0817]/80 p-4 rounded-2xl border border-white/10 shadow-inner flex flex-col justify-center items-center relative overflow-hidden group hover:border-emerald-400/40 transition-colors">
                     <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-widest z-10">Kho An Toàn</p>
-                    <p className="text-3xl font-black text-white z-10">{result.target_inventory.toLocaleString()}</p>
+                    <p className="text-3xl font-black text-white z-10">{Number(result.target_inventory || 0).toLocaleString()}</p>
                     <div className="mt-2 flex items-center gap-1.5 text-slate-400 text-xs font-medium z-10">
                         <span className="material-symbols-outlined text-[14px] text-emerald-400">verified_user</span>
                         <span>Mức chuẩn an toàn</span>
@@ -43,17 +43,17 @@ export default function PredictionResults({ result, storeScale, month, chartData
                 <div className="bg-gradient-to-b from-[#FF00E5]/20 to-[#0A0817] p-4 rounded-2xl border border-[#FF00E5]/50 shadow-[0_0_15px_rgba(255,0,229,0.1)] relative overflow-hidden flex flex-col justify-center items-center">
                     <div className="absolute top-0 left-0 w-full h-1 bg-[#FF00E5] shadow-[0_0_10px_#FF00E5]"></div>
                     <p className="text-[10px] font-bold text-slate-300 mb-1 uppercase tracking-widest z-10">Lệnh Nhập Mới</p>
-                    <p className="text-4xl font-black text-[#FF00E5] drop-shadow-[0_0_8px_rgba(255,0,229,0.5)] z-10">+{result.order_qty.toLocaleString()}</p>
+                    <p className="text-4xl font-black text-[#FF00E5] drop-shadow-[0_0_8px_rgba(255,0,229,0.5)] z-10">{Number(result.order_qty || 0).toLocaleString()}</p>
                     <div className="mt-2 flex items-center gap-1.5 text-slate-300 text-xs font-medium bg-black/40 px-3 py-1 rounded-full border border-white/10 z-10">
                         <span className="material-symbols-outlined text-[14px] text-[#FF00E5]">history</span>
-                        <span>Tồn kho cũ: {result.start_inventory.toLocaleString()}</span>
+                        <span>Tồn kho cũ: {Number(result.start_inventory || 0).toLocaleString()})</span>
                     </div>
                 </div>
 
                 {/* Thẻ 4: Tồn Cuối Kỳ */}
                 <div className="bg-[#0A0817]/80 p-4 rounded-2xl border border-white/10 shadow-inner flex flex-col justify-center items-center relative overflow-hidden group hover:border-[#00F2FF]/40 transition-colors">
                     <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-widest z-10">Tồn Cuối Kỳ</p>
-                    <p className="text-3xl font-black text-[#00F2FF] z-10">{result.end_inventory.toLocaleString()}</p>
+                    <p className="text-3xl font-black text-[#00F2FF] z-10">{Number(result.end_inventory || 0).toLocaleString()}</p>
                     <div className="mt-2 flex items-center gap-1.5 text-slate-400 text-xs font-medium z-10">
                         <span className="material-symbols-outlined text-[14px] text-[#00F2FF]">arrow_forward</span>
                         <span>Sang Tháng {month === 12 ? 1 : month + 1}</span>

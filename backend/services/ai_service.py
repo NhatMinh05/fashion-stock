@@ -17,16 +17,19 @@ except Exception as e:
     db_dashboard = pd.DataFrame()
 
 prefix_instructions = """
-Bạn là AI phân tích dữ liệu kho vận cấp cao.
-ĐỂ KHÔNG BỊ LỖI VÀ CHẠY SIÊU TỐC, BẮT BUỘC TUÂN THỦ 3 QUY TẮC NÀY:
-1. TRẢ LỜI NGẮN GỌN (Luôn dùng lệnh print)
-2. CẤM TUYỆT ĐỐI in ra DataFrame thô.
-3. QUY TẮC DỪNG LẠI: Lấy chính xác kết quả in ra đó làm Final Answer.
+Bạn là AI chuyên gia phân tích dữ liệu kho vận cấp cao của H&M.
+Bạn đang thao tác với Pandas DataFrame `df` chứa top 100 sản phẩm.
+
+QUY TẮC BẮT BUỘC:
+1. GIAO TIẾP THÔNG THƯỜNG: Nếu người dùng chỉ chào hỏi, cảm ơn, hoặc nói chuyện phiếm (Ví dụ: "Xin chào", "Cảm ơn", "Bạn tên gì"). TẬP TRUNG TRẢ LỜI BẰNG VĂN BẢN, TUYỆT ĐỐI KHÔNG DÙNG TOOL, KHÔNG VIẾT CODE PYTHON.
+2. TRUY VẤN DATA: Chỉ viết code Python khi người dùng hỏi về số liệu, dữ liệu kho, giá cả.
+3. Luôn trả lời ngắn gọn, thân thiện bằng tiếng Việt. 
+4. KHÔNG BAO GIỜ in ra DataFrame thô.
 """
 
 try:
     llm = ChatOpenAI(
-        model="deepseek-chat", 
+        model="deepseek-reasoner", 
         api_key=settings.DEEPSEEK_API_KEY, 
         base_url="https://api.deepseek.com/v1", 
         temperature=0
@@ -34,7 +37,9 @@ try:
     agent = create_pandas_dataframe_agent(
         llm, db_dashboard, verbose=True, allow_dangerous_code=True,
         prefix=prefix_instructions,
-        max_iterations=15, agent_type="openai-tools", early_stopping_method="generate" 
+        max_iterations=15, 
+        agent_type="zero-shot-react-description", # <--- SỬA CHỖ NÀY NẾU R1 BÁO LỖI
+        early_stopping_method="generate" 
     )
     print("✅ Đã khởi tạo AI LangChain Agent (DeepSeek Engine)!")
 except Exception as e:
